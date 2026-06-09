@@ -42,7 +42,10 @@ class CustomUser(AbstractUser):
             'unique': "Ya existe un usuario registrado con este correo electrónico.",
         }
     )
+    USERNAME_FIELD = 'email'  # Define el email como el identificador de inicio de sesión
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']  # Campos requeridos en createsuperuser (además del email)
 
+    
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"

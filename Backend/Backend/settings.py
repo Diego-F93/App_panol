@@ -109,6 +109,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
+    'apps.usuarios.backends.EmailAuthBackend',  # Nuestro backend por email
+    'django.contrib.auth.backends.ModelBackend', # Respaldar el login clásico
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
