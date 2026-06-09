@@ -22,6 +22,7 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Leer el archivo .env si existe
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
@@ -56,7 +57,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'login',
+    'apps.usuarios',
     #'apps.inventario',
 ]
 
@@ -141,7 +142,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 #MODELO DE USUARIO PERSONALIZADO
-#AUTH_USER_MODEL = 'usuarios.CustomUser'
+AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -174,10 +175,19 @@ CORS_ALLOWED_ORIGINS = env.list('CORS_ALLOWED_ORIGINS', default=[
     'http://127.0.0.1:3000',
 ])
 
-
+#CONFIGURACION DE DRF SPECTACULAR
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Documentacion Backend API Panol',
     'DESCRIPTION': 'Interactive API documentation using Swagger UI',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+#CONFIGURACION DE ENVIO DE CORREOS SMTP
+MAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('SMTP_HOST', default='smtp.gmail.com')
+EMAIL_PORT = env.int('SMTP_PORT', default=587)
+EMAIL_USE_TLS = env.bool('USE_TLS', default=True)
+EMAIL_HOST_USER = env('SMTP_USER', default='')
+EMAIL_HOST_PASSWORD = env('SMTP_PASSWORD', default='')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
